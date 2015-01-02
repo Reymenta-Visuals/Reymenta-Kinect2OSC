@@ -1,37 +1,37 @@
 /*
-* 
+*
 * Copyright (c) 2014, Ban the Rewind, Wieden+Kennedy
 * All rights reserved.
-* 
-* Redistribution and use in source and binary forms, with or 
-* without modification, are permitted provided that the following 
+*
+* Redistribution and use in source and binary forms, with or
+* without modification, are permitted provided that the following
 * conditions are met:
-* 
-* Redistributions of source code must retain the above copyright 
+*
+* Redistributions of source code must retain the above copyright
 * notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright 
-* notice, this list of conditions and the following disclaimer in 
-* the documentation and/or other materials provided with the 
+* Redistributions in binary form must reproduce the above copyright
+* notice, this list of conditions and the following disclaimer in
+* the documentation and/or other materials provided with the
 * distribution.
-* 
-* Neither the name of the Ban the Rewind nor the names of its 
-* contributors may be used to endorse or promote products 
-* derived from this software without specific prior written 
+*
+* Neither the name of the Ban the Rewind nor the names of its
+* contributors may be used to endorse or promote products
+* derived from this software without specific prior written
 * permission.
-* 
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
-* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS 
-* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE 
-* COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, 
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+* COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
-* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, 
-* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+* STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+* ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-* 
+*
 */
 
 #include "Kinect2OSCApp.h"
@@ -44,7 +44,7 @@ void Kinect2OSCApp::prepareSettings(Settings* settings)
 	// parameters
 	mParameterBag = ParameterBag::create();
 
-	settings->setFrameRate(60.0f);
+	settings->setFrameRate(12.0f);
 	settings->setWindowSize(mParameterBag->mMainWindowWidth, mParameterBag->mMainWindowHeight);
 	settings->setResizable(true);
 	settings->setWindowPos(Vec2i(mParameterBag->mMainWindowX, mParameterBag->mMainWindowY));
@@ -275,12 +275,12 @@ void Kinect2OSCApp::onFrame(MsKinect::Frame frame)
 	{
 		Surface16u depth = MsKinect::depthChannelToSurface(frame.getDepthChannel(), MsKinect::DepthProcessOptions().enableRemoveBackground());
 		mTextureDepth = gl::Texture::create(depth);
-		//mTextures->setKinectTexture(3, gl::Texture(depth));
+		mTextures->setTexture(3, gl::Texture(depth));
 	}
 	if (frame.getColorSurface())
 	{
 		mTextureColor = gl::Texture::create(frame.getColorSurface());
-		//mTextures->setKinectTexture(2, frame.getColorSurface());
+		mTextures->setTexture(2, frame.getColorSurface());
 	}
 	//else 
 	/*if (frame.getInfraredChannel())
@@ -327,14 +327,14 @@ void Kinect2OSCApp::draw()
 
 				Vec2i v0 = mDevice->mapSkeletonCoordToDepth(bone.getPosition());
 				Vec2i v1 = mDevice->mapSkeletonCoordToDepth(skeleton.at(bone.getStartJoint()).getPosition());
-				//OK mOSC->sendOSCIntMessage("/joint", skeletonIndex, jointIndex, v0.x, v0.y, v1.x, v1.y);
+				mOSC->sendOSCIntMessage("/joint", skeletonIndex, jointIndex, v0.x, v0.y, v1.x, v1.y);
 				gl::drawLine(v0, v1);
 				gl::drawSolidCircle(v0, 5.0f, 16);
 				jointIndex++;
 			}
 			skeletonIndex++;
 		}
-		//OK mOSC->sendOSCIntMessage("/jointcount", jointIndex / 20, 0, 0, 0, 0, 0);
+		if (jointIndex > 0) mOSC->sendOSCIntMessage("/jointcount", jointIndex - 1, 0, 0, 0, 0, 0);
 
 		if (mFace.getMesh2d().getNumVertices() > 0) {
 			gl::pushMatrices();
@@ -386,8 +386,8 @@ void Kinect2OSCApp::draw()
 			mTextureDepth->unbind();
 			mFbo[ping].unbindTexture();
 			mFbo[pong].unbindFramebuffer();
-			//mTextures->setKinectTexture(0, mFbo[pong].getTexture());
-			//mTextures->setKinectTexture(1, *mTextureDepth);
+			mTextures->setTexture(0, mFbo[pong].getTexture());
+			mTextures->setTexture(1, *mTextureDepth);
 		}
 
 		////////////////////////////////////////////////////////////////
@@ -430,7 +430,8 @@ void Kinect2OSCApp::draw()
 
 			mShaderDraw->unbind();
 			mFbo[pong].unbindTexture();
-			//mTextures->setKinectTexture(4, mFbo[pong].getTexture());
+			mTextures->setTexture(4, mFbo[pong].getTexture());
+
 			gl::disableAlphaBlending();
 			if (bInitialized && mParameterBag->mSendToOutput)
 			{
@@ -448,6 +449,12 @@ void Kinect2OSCApp::draw()
 			}
 		}
 	}
+	gl::draw(mTextures->getTexture(1), Rectf(100, 100, 200, 200));
+	gl::draw(mTextures->getTexture(2), Rectf(200, 200, 300, 300));
+	gl::draw(mTextures->getTexture(3), Rectf(300, 300, 200, 200));
+	gl::draw(mTextures->getTexture(4), Rectf(500, 500, 300, 300));
+
+
 	gl::disableAlphaBlending();
 }
 void Kinect2OSCApp::shutdown()
@@ -460,4 +467,4 @@ void Kinect2OSCApp::shutdown()
 		quit();
 	}
 }
-CINDER_APP_NATIVE( Kinect2OSCApp, RendererGl )
+CINDER_APP_NATIVE(Kinect2OSCApp, RendererGl)
