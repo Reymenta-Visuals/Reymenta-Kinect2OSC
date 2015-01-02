@@ -52,25 +52,7 @@ void Kinect2OSCApp::prepareSettings(Settings* settings)
 
 void Kinect2OSCApp::setup()
 {
-    /*gl::color( ColorAf::white() );
-    gl::enable( GL_TEXTURE_2D );
-    
-    mDevice = MsKinect::Device::create();
-    mDevice->connectEventHandler( [ & ]( MsKinect::Frame frame )
-    {
-        if ( frame.getColorSurface() ) {
-            mTextureColor = gl::Texture::create( frame.getColorSurface() );
-        } else if ( frame.getInfraredChannel() ) {
-            mTextureColor = gl::Texture::create( frame.getInfraredChannel() );
-        }
-        if ( frame.getDepthChannel() ) {
-            mTextureDepth = gl::Texture::create( frame.getDepthChannel() );
-        }
-    } );
-    MsKinect::DeviceOptions options;
-    // Uncomment to read IR stream. Enabling IR disables color stream.
-    //options.enableInfrared();
-    mDevice->start( options );*/
+
 	log->logTimedString("setup");
 	glLineWidth(2.0f);
 	mIsShutDown = false;
@@ -279,6 +261,10 @@ void Kinect2OSCApp::update()
 
 	mTextures->update();
 	mOSC->update();
+}
+void Kinect2OSCApp::updateWindowTitle()
+{
+	getWindow()->setTitle("(" + toString(floor(getAverageFps())) + " fps) Reymenta Kinect2OSC");
 }
 void Kinect2OSCApp::onFrame(MsKinect::Frame frame)
 {
