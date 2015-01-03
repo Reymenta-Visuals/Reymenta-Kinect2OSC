@@ -295,7 +295,7 @@ void Kinect2OSCApp::draw()
 {
 	gl::clear();
 	// draw the fbos
-	mTextures->draw();
+	// not needed mTextures->draw();
 	unsigned int width, height;
 
 	// -------- SPOUT -------------
@@ -338,7 +338,7 @@ void Kinect2OSCApp::draw()
 
 		if (mFace.getMesh2d().getNumVertices() > 0) {
 			gl::pushMatrices();
-			gl::scale(0.5f, 0.5f);
+			//gl::scale(0.5f, 0.5f);
 			gl::color(ColorAf::white());
 			gl::enableWireframe();
 			gl::draw(mFace.getMesh2d());
@@ -449,10 +449,16 @@ void Kinect2OSCApp::draw()
 			}
 		}
 	}
-	gl::draw(mTextures->getTexture(1), Rectf(100, 100, 200, 200));
-	gl::draw(mTextures->getTexture(2), Rectf(200, 200, 300, 300));
-	gl::draw(mTextures->getTexture(3), Rectf(300, 300, 200, 200));
-	gl::draw(mTextures->getTexture(4), Rectf(500, 500, 300, 300));
+gl::setMatricesWindow(getWindowSize());
+gl::setViewport(getWindowBounds());
+
+
+
+gl::draw(mTextures->getTexture(0), Rectf(0, 0, 100, 100));
+gl::draw(mTextures->getTexture(1), Rectf(100, 100, 200, 200));
+gl::draw(mTextures->getTexture(2), Rectf(200, 200, 300, 300));
+	gl::draw(mTextures->getTexture(3), Rectf(300, 300, 400, 400));
+	gl::draw(mTextures->getTexture(4), Rectf(400, 400, 500, 500));
 
 
 	gl::disableAlphaBlending();
