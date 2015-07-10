@@ -28,6 +28,27 @@
     <Filter Include="Blocks\Kinect Common Bridge\src">
       <UniqueIdentifier>{A8B355F0-41B8-49BD-A05C-532CFBBE8F74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Blocks\OpenCV">
+      <UniqueIdentifier>{4A0AEFCA-F06A-465C-B90D-D165E0D610E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\OpenCV\include">
+      <UniqueIdentifier>{F7DFD7CB-D884-44C8-B397-D85726042B54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Warping">
+      <UniqueIdentifier>{FC63D898-065B-4BF7-91FA-9CA3A1987443}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Warping\include">
+      <UniqueIdentifier>{1B0A14C6-5A32-4C1E-84C3-00C8DD3BC85D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Warping\src">
+      <UniqueIdentifier>{7C14919F-2A61-464B-898F-0681D23126DD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Cinder-WebSocketPP">
+      <UniqueIdentifier>{EA7F2387-778D-46C4-A408-CBDDFDF783DF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Cinder-WebSocketPP\src">
+      <UniqueIdentifier>{6C1CAB87-4B21-49F0-A909-BE62C834ED5A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Blocks\Reymenta">
       <UniqueIdentifier>{F2112C76-C13F-4307-AA82-FE515E723D5A}</UniqueIdentifier>
     </Filter>
@@ -62,15 +83,6 @@
     </ClInclude>
     <ClCompile Include="..\src\Kinect2OSCApp.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\..\blocks\Cinder-ImGui\src\ImGuiCinder.h">
-      <Filter>Blocks\imGui\src</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\..\blocks\Cinder-ImGui\src\imgui.cpp">
-      <Filter>Blocks\imGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\blocks\Cinder-ImGui\src\ImGuiCinder.cpp">
-      <Filter>Blocks\imGui\src</Filter>
     </ClCompile>
     <ClInclude Include="..\..\..\blocks\Cinder-KCB\src\Kinect.h">
       <Filter>Blocks\Kinect Common Bridge\src</Filter>
@@ -210,6 +222,63 @@
     <ClCompile Include="..\..\..\blocks\OSC\src\ip\win32\UdpSocket.cpp">
       <Filter>Blocks\OSC\src\ip\win32</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-ImGui\src\CinderImGui.cpp">
+      <Filter>Blocks\imGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-ImGui\lib\imgui\imgui.cpp">
+      <Filter>Blocks\imGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-Reymenta\src\JSONWrapper.cpp">
+      <Filter>Blocks\Reymenta\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-Reymenta\src\SpoutWrapper.cpp">
+      <Filter>Blocks\Reymenta\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-Reymenta\src\WarpWrapper.cpp">
+      <Filter>Blocks\Reymenta\src</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\blocks\Cinder-Warping\include\Warp.h">
+      <Filter>Blocks\Warping\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-Warping\include\WarpBilinear.h">
+      <Filter>Blocks\Warping\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-Warping\include\WarpPerspective.h">
+      <Filter>Blocks\Warping\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-Warping\include\WarpPerspectiveBilinear.h">
+      <Filter>Blocks\Warping\include</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\blocks\Cinder-Warping\src\Warp.cpp">
+      <Filter>Blocks\Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-Warping\src\WarpBilinear.cpp">
+      <Filter>Blocks\Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-Warping\src\WarpPerspective.cpp">
+      <Filter>Blocks\Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-Warping\src\WarpPerspectiveBilinear.cpp">
+      <Filter>Blocks\Warping\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-WebSocketPP\src\WebSocketClient.cpp">
+      <Filter>Blocks\Cinder-WebSocketPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-WebSocketPP\src\WebSocketConnection.cpp">
+      <Filter>Blocks\Cinder-WebSocketPP\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\blocks\Cinder-WebSocketPP\src\WebSocketServer.cpp">
+      <Filter>Blocks\Cinder-WebSocketPP\src</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\blocks\Cinder-WebSocketPP\src\WebSocketClient.h">
+      <Filter>Blocks\Cinder-WebSocketPP\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-WebSocketPP\src\WebSocketConnection.h">
+      <Filter>Blocks\Cinder-WebSocketPP\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-WebSocketPP\src\WebSocketServer.h">
+      <Filter>Blocks\Cinder-WebSocketPP\src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -217,6 +286,21 @@
     </ClInclude>
     <ClInclude Include="..\include\Kinect2OSCApp.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-ImGui\include\CinderImGui.h">
+      <Filter>Blocks\imGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-ImGui\lib\imgui\imgui.h">
+      <Filter>Blocks\imGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-Reymenta\include\JSONWrapper.h">
+      <Filter>Blocks\Reymenta\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-Reymenta\include\SpoutWrapper.h">
+      <Filter>Blocks\Reymenta\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\blocks\Cinder-Reymenta\include\WarpWrapper.h">
+      <Filter>Blocks\Reymenta\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

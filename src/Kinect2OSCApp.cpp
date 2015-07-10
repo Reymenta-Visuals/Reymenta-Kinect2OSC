@@ -405,7 +405,7 @@ void Kinect2OSCApp::draw()
 				// clear the FBO
 				gl::clear();
 
-				gl::setMatricesWindow(mParameterBag->mOutputResolution.x, mParameterBag->mOutputResolution.y, mParameterBag->mOriginUpperLeft);
+				gl::setMatricesWindow(mParameterBag->mOutputResolution.x, mParameterBag->mOutputResolution.y);// , mParameterBag->mOriginUpperLeft);
 			}
 			gl::setMatricesWindow(getWindowSize());
 			gl::enableAlphaBlending();
